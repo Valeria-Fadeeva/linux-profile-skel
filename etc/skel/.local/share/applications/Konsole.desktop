@@ -1,0 +1,19 @@
+[Desktop Entry]
+Comment[ru_RU]=
+Comment=
+Exec=/usr/bin/konsole -e %U
+GenericName[ru_RU]=
+GenericName=
+MimeType=application/x-shellscript;
+Name[ru_RU]=konsole
+Name=konsole
+NoDisplay=true
+Path=
+StartupNotify=true
+Terminal=false
+TerminalOptions=
+Type=Application
+X-DBUS-ServiceName=
+X-DBUS-StartupType=none
+X-KDE-SubstituteUID=false
+X-KDE-Username=

@@ -1,0 +1,20 @@
+[Added Associations]
+application/x-shellscript=bash.desktop;org.kde.kate.desktop;org.kde.kwrite.desktop;okularApplication_txt.desktop;
+inode/directory=org.kde.dolphin.desktop;
+x-scheme-handler/geo=google-maps-geo-handler.desktop;
+x-scheme-handler/http=firefox.desktop;
+x-scheme-handler/https=firefox.desktop;
+x-scheme-handler/mailto=Mailspring.desktop;
+x-scheme-handler/tel=Zoom.desktop;
+
+[Default Applications]
+application/x-shellscript=bash.desktop;
+inode/directory=org.kde.dolphin.desktop;
+x-scheme-handler/geo=google-maps-geo-handler.desktop;
+x-scheme-handler/http=firefox.desktop;
+x-scheme-handler/https=firefox.desktop;
+x-scheme-handler/mailto=Mailspring.desktop;
+x-scheme-handler/tel=Zoom.desktop;
+
+[Removed Associations]
+application/x-shellscript=org.kde.konsole.desktop;Konsole.desktop;Konsole.desktop;org.kde.konsole.desktop;bash.desktop;
