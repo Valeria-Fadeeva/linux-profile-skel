@@ -2,86 +2,82 @@
 # ~/.bashrc
 #
 
-# If not running interactively, don't do anything
-[[ $- != *i* ]] && return
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
 
-[[ -f ~/.welcome_screen ]] && . ~/.welcome_screen
-
-_set_liveuser_PS1() {
-    PS1='[\u@\h \W]\$ '
-    if [ "$(whoami)" = "liveuser" ] ; then
-        local iso_version="$(grep ^VERSION= /usr/lib/endeavouros-release 2>/dev/null | cut -d '=' -f 2)"
-        if [ -n "$iso_version" ] ; then
-            local prefix="eos-"
-            local iso_info="$prefix$iso_version"
-            PS1="[\u@$iso_info \W]\$ "
-        fi
-    fi
-}
-_set_liveuser_PS1
-unset -f _set_liveuser_PS1
-
-ShowInstallerIsoInfo() {
-    local file=/usr/lib/endeavouros-release
-    if [ -r $file ] ; then
-        cat $file
-    else
-        echo "Sorry, installer ISO info is not available." >&2
-    fi
-}
+# Advanced command-not-found hook
+source /usr/share/doc/find-the-command/ftc.bash
 
 
-alias ls='ls --color=auto'
-alias ll='ls -lav --ignore=..'   # show long listing of all except ".."
-alias l='ls -lav --ignore=.?*'   # show long listing but no hidden dotfiles except "."
+xhost +local:root > /dev/null 2>&1
 
-[[ "$(whoami)" = "root" ]] && return
+complete -cf sudo
 
-[[ -z "$FUNCNEST" ]] && export FUNCNEST=100          # limits recursive functions, see 'man bash'
+shopt -s cdspell
+shopt -s checkwinsize
+shopt -s cmdhist
+shopt -s dotglob
+shopt -s expand_aliases
+shopt -s extglob
+shopt -s histappend
+shopt -s hostcomplete
+shopt -s nocaseglob
 
-## Use the up and down arrow keys for finding a command in history
-## (you can write some initial letters of the command first).
-bind '"\e[A":history-search-backward'
-bind '"\e[B":history-search-forward'
+export HISTSIZE=10000
+export HISTFILESIZE=${HISTSIZE}
+export HISTCONTROL=ignoreboth
 
-################################################################################
-## Some generally useful functions.
-## Consider uncommenting aliases below to start using these functions.
-##
-## October 2021: removed many obsolete functions. If you still need them, please look at
-## https://github.com/EndeavourOS-archive/EndeavourOS-archiso/raw/master/airootfs/etc/skel/.bashrc
+alias ls='ls --group-directories-first --time-style=+"%d.%m.%Y %H:%M" --color=auto -F'
+alias ll='ls -l --group-directories-first --time-style=+"%d.%m.%Y %H:%M" --color=auto -F'
+alias la='ls -la --group-directories-first --time-style=+"%d.%m.%Y %H:%M" --color=auto -F'
+alias grep='grep --color=tty -d skip'
+alias cp="cp -i"                          # confirm before overwriting something
+alias df='df -h'                          # human-readable sizes
+alias vp='vim PKGBUILD'
+alias vs='vim SPLITBUILD'
+alias upd='mirror-check --fast && sudo pacman -Syu'
+alias dvdburn='growisofs -Z /dev/sr0 -R -J'
+alias :pf='pkgfile -vri'
 
-_open_files_for_editing() {
-    # Open any given document file(s) for editing (or just viewing).
-    # Note1:
-    #    - Do not use for executable files!
-    # Note2:
-    #    - Uses 'mime' bindings, so you may need to use
-    #      e.g. a file manager to make proper file bindings.
-
-    if [ -x /usr/bin/exo-open ] ; then
-        echo "exo-open $@" >&2
-        setsid exo-open "$@" >& /dev/null
-        return
-    fi
-    if [ -x /usr/bin/xdg-open ] ; then
-        for file in "$@" ; do
-            echo "xdg-open $file" >&2
-            setsid xdg-open "$file" >& /dev/null
-        done
-        return
-    fi
-
-    echo "$FUNCNAME: package 'xdg-utils' or 'exo' is required." >&2
+# ex - archive extractor
+# usage: ex <file>
+ex ()
+{
+  if [ -f $1 ] ; then
+    case $1 in
+      *.tar.bz2)   tar xjf $1   ;;
+      *.tar.gz)    tar xzf $1   ;;
+      *.bz2)       bunzip2 $1   ;;
+      *.rar)       unrar x $1     ;;
+      *.gz)        gunzip $1    ;;
+      *.tar)       tar xf $1    ;;
+      *.tbz2)      tar xjf $1   ;;
+      *.tgz)       tar xzf $1   ;;
+      *.zip)       unzip $1     ;;
+      *.Z)         uncompress $1;;
+      *.7z)        7z x $1      ;;
+      *)           echo "'$1' cannot be extracted via ex()" ;;
+    esac
+  else
+    echo "'$1' is not a valid file"
+  fi
 }
 
-#------------------------------------------------------------
+# default editor
+export EDITOR=micro
+export VISUAL=micro
+alias vi=vim
 
-## Aliases for the functions above.
-## Uncomment an alias if you want to use it.
-##
 
-# alias ef='_open_files_for_editing'     # 'ef' opens given file(s) for editing
-# alias pacdiff=eos-pacdiff
-################################################################################
+# prompt
+PS1='[\u@\h \W]\$ '
 
+powerline-daemon -q
+POWERLINE_BASH_CONTINUATION=1
+POWERLINE_BASH_SELECT=1
+. /usr/share/bash/powerline.sh

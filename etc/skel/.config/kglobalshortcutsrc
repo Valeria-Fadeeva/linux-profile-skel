@@ -3,7 +3,7 @@ _k_friendly_name=Диспетчер комнат
 switch-to-activity-29a1d6a7-f969-4e0e-992b-63027177fa6a=none,none,Переключиться на комнату «Начальная комната»
 
 [KDE Keyboard Layout Switcher]
-Switch to Next Keyboard Layout=Meta+Alt+K,none,Выбрать следующую раскладку клавиатуры
+Switch to Next Keyboard Layout=Meta+Alt+K,Meta+Alt+K,Выбрать следующую раскладку клавиатуры
 _k_friendly_name=Переключение раскладки клавиатуры
 
 [kaccess]
@@ -13,7 +13,7 @@ _k_friendly_name=Специальные возможности
 [kcm_touchpad]
 Disable Touchpad=Touchpad Off,Touchpad Off,Выключить сенсорную панель
 Enable Touchpad=Touchpad On,Touchpad On,Включить сенсорную панель
-Toggle Touchpad=Touchpad Toggle,Touchpad Toggle,Включить или выключить сенсорную панель
+Toggle Touchpad=Touchpad Toggle,Touchpad Toggle\tMeta+Ctrl+Zenkaku Hankaku,Включить или выключить сенсорную панель
 _k_friendly_name=Сенсорная панель
 
 [kded5]
@@ -52,6 +52,7 @@ ExposeClass=Ctrl+F7,Ctrl+F7,Показать окна одного класса
 ExposeClassCurrentDesktop=none,none,Показать все окна одного класса с текущего рабочего стола
 Increase Opacity=none,,Увеличить непрозрачность окна на 5%
 Kill Window=Meta+Ctrl+Esc,Meta+Ctrl+Esc,Принудительно закрыть окно
+Move Tablet to Next Output=none,none,Переключить планшет к следующему выходу
 MoveMouseToCenter=Meta+F6,Meta+F6,Переместить мышь в центр
 MoveMouseToFocus=Meta+F5,Meta+F5,Переместить мышь в фокус ввода
 MoveZoomDown=none,none,Переместить увеличенную область вниз
